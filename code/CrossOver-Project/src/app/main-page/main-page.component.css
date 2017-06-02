@@ -8,5 +8,17 @@
 #buttonInsert {
 	position:relative;
 	top:50%; 
-	left:40%;
+	left:37%;
+}
+
+#pat {
+	position:relative;
+	top:50%; 
+	left:15%;
+}
+
+#don {
+	position:relative;
+	top:50%; 
+	left:50%;
 }

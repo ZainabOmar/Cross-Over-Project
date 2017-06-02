@@ -1,11 +1,11 @@
-<h1 style="text-align: center; color: #000066">Welcome to Blood Donation website</h1>
-<br>
+<h1 style="text-align: center; color: #000066">Welcome to Our Blood Donation website</h1>
+<h4 style="text-align: center; color: #000066">Please click on your location</h4>
 <h3 id = "out" style="text-align: center; color: #3399ff;"></h3>
 <br>
-<div id = "form" style= "display: none;">
+
+<div id = "userType"  style= "display: none;">
 
 	<button id = "buttonInsert" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Please Insert Your Information</button>
-
 	<!-- Modal -->
 	<div id="myModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
@@ -14,43 +14,48 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Please Insert Your Information</h4>
+					<h4 class="modal-title" style="text-align: center;">Please tell us if you were a patient or a donor!</h4>
 				</div>
 				<div class="modal-body">
-					<form>
-						<div class="form-group">
-							<label for="firstName">First Name</label>
-							<input type="firstName" class="form-control" id="firstName" placeholder="Enter Your first name">
+					<button id = "pat" type="button" class="btn btn-info" (click)="patFlag()">I am Patient</button>
+					<button id = "don" type="button" class="btn btn-info" (click)="donFlag()">I am Donor</button>
+					<div *ngIf="donorFlag">
+						<div (submit) = "addDonor()">
+							<form>
+								<div class="form-group">
+									<label for="firstName">First Name</label>
+									<input type="firstName" class="form-control" id="firstName" placeholder="Enter Your first name" [(ngModel)]="firstName">
+								</div>
+								<div class="form-group">
+									<label for="lastName">Last Name</label>
+									<input type="lastName" class="form-control" id="lastName" placeholder="Enter Your Last name" [(ngModel)]="lastName">
+								</div>
+								<div class="form-group">
+									<label for="contact">Contact Number</label>
+									<input type="number" class="form-control" id="number" placeholder="Enter Contact Number" [(ngModel)]="contactNumber">
+								</div>
+								<div class="form-group">
+									<label for="email">Email address</label>
+									<input type="email" class="form-control" id="email" placeholder="Enter email" [(ngModel)]="email">
+								</div>
+								<div class="form-group">
+									<label for="bloodGroup">Blood Group:</label>
+									<input type="blood" class="form-control" id="bloodGroup" placeholder="Enter Blood Group" [(ngModel)]="bloodGroup">
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Submit</button>
+								</div>
+							</form>
 						</div>
-						<div class="form-group">
-							<label for="lastName">Last Name</label>
-							<input type="lastName" class="form-control" id="lastName" placeholder="Enter Your Last name">
-						</div>
-						<div class="form-group">
-							<label for="contact">Contact Number</label>
-							<input type="number" class="form-control" id="number" placeholder="Enter Contact Number">
-						</div>
-						<div class="form-group">
-							<label for="email">Email address</label>
-							<input type="email" class="form-control" id="email" placeholder="Enter email">
-						</div>
-						<div class="form-group">
-							<label for="bloodGroup">Blood Group:</label>
-							<input type="blood" class="form-control" id="bloodGroup" placeholder="Enter Blood Group">
-						</div>
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal" (click) = "addUser()">Submit</button>
+					</div>
+
 				</div>
 			</div>
 
 		</div>
 	</div>
-
 </div>
 
-
 <br>
-<div id="viewDiv" (click) = "div_show()" (click) = "geoFindMe()" >
+<div id="viewDiv" (click) = "div_show_userType()" (click) = "geoFindMe()" >
 </div>

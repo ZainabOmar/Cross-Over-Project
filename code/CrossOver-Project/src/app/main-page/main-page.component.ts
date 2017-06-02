@@ -7,7 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainPageComponent implements OnInit {
 
-	showForm: false;
+	firstName: String;
+	lastName: String;
+	email: String;
+	bloodGroup: String;
+	contactNumber: String;
+	userType: String;
+
+	showUserType= false;
+	showUserInfo= false;
+
+	patientFlag= false;
+	donorFlag= false;
+	patientButton= true;
+	donorButton= true;
 
 	constructor() { }
 
@@ -38,12 +51,29 @@ export class MainPageComponent implements OnInit {
 		navigator.geolocation.getCurrentPosition(success, error);
 	}
 
-	div_show() {
-		document.getElementById('form').style.display = "block";
-		this.showForm = false;
+ donFlag() {
+    this.donorFlag = !this.donorFlag;
+    this.patientButton = !this.patientButton;
+  }
+
+  patFlag() {
+    this.patientFlag = !this.patientFlag;
+    this.donorButton = !this.donorButton;
+  }
+
+	div_show_userType() {
+		document.getElementById('userType').style.display = "block";
+		this.showUserType = false;
 	}
 
-	addUser() {
-		console.log("hello there")
+	addDonor() {
+		console.log("donor added")
+		const user = {
+      firstName: this.firstName,
+      email: this.email,
+      lastName: this.lastName,
+      bloodGroup: this.bloodGroup,
+      contactNumber: this.contactNumber
+    }
 	}
 }

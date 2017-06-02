@@ -1,9 +1,6 @@
 var mongoose = require('mongoose');
 
-var userSchema = new mongoose.Schema({
-  UserType:{
-    type:Boolean
-  },
+var donorSchema = new mongoose.Schema({
   firstName:{
    type:String,
    required:true  
@@ -28,6 +25,10 @@ bloodGroup:{
 });
 
 
-var user = mongoose.model('user', userSchema);
+var donor = mongoose.model('donor', donorSchema);
 
-module.exports = user;
+module.exports.getAllDonors = (callback) => {
+  donor.find(callback);
+}
+
+module.exports = donor;
