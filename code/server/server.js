@@ -29,10 +29,9 @@ io.on('connection', (socket) => {
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/company');
 var db = mongoose.connection;
 
+app.post('/api/postDonor:userId', UsersController.handler.sendDonorsInfo)
 
 app.listen(process.env.PORT || 3300);
 console.log('Running on port 3300...');
-
-
 
 module.exports = app;
