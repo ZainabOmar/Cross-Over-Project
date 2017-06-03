@@ -32,18 +32,20 @@
 								</div>
 								<div class="form-group">
 									<label for="contact">Contact Number</label>
-									<input name="number" type="number" class="form-control" id="number" placeholder="Enter Contact Number" [(ngModel)]="contactNumber">
+									<input name="number" type="text" class="form-control" placeholder="Enter Contact Number" [(ngModel)]="contactNumber" #number="ngModel" phone="CN">
+									<p *ngIf="number.errors?.phone" style="color: red;">invalid number</p>
 								</div>
 								<div class="form-group">
-									<label for="email">Email address</label>
-									<input name="email" type="email" class="form-control" id="email" placeholder="Enter email" [(ngModel)]="email">
+									<label for="emailAddress">Email address</label>
+									<input name="email" type="text" class="form-control" placeholder="Enter email address" [(ngModel)]="emailAddress" #email = "ngModel" email>
+									
 								</div>
 								<div class="form-group">
 									<label for="bloodGroup">Blood Group:</label>
 									<input name="blood" type="blood" class="form-control" id="bloodGroup" placeholder="Enter Blood Group" [(ngModel)]="bloodGroup">
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal" (click) = "addDonor()">Submit</button>
+									<button id = "myBtn" type="button" class="btn btn-default" data-dismiss="modal" (click) = "addDonor()">Submit</button>
 								</div>
 							</form>
 						</div>
@@ -54,6 +56,10 @@
 
 		</div>
 	</div>
+</div>
+<div *ngIf="email.errors?.email" style="color: red;">
+	<p>invalid email</p>
+	<button></button>
 </div>
 
 <br>
