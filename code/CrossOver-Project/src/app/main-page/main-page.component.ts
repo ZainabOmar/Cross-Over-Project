@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../services/auth.service';
 import {ValidateService} from '../services/validate.service';
 import {FlashMessagesService} from 'angular2-flash-messages';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormsModule  } from '@angular/forms';
 
 @Component({
 	selector: 'app-main-page',
@@ -47,8 +47,6 @@ export class MainPageComponent implements OnInit {
 			var latitude  = position.coords.latitude;
 			var longitude = position.coords.longitude;
 
-			output.innerHTML = 'Thanks for helping us getting your Location';
-
 			console.log("Latitude: " + position.coords.latitude + 
 				" Longitude: " + position.coords.longitude)
 		}
@@ -56,7 +54,7 @@ export class MainPageComponent implements OnInit {
 		function error() {
 			output.innerHTML = "Unable to retrieve your location";
 		}
-		output.innerHTML = "<p>Locating…</p>";
+		// output.innerHTML = "<p>Locating…</p>";
 		navigator.geolocation.getCurrentPosition(success, error);
 	}
 
