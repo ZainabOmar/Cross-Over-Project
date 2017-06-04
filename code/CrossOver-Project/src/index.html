@@ -18,18 +18,25 @@
 
 	<script type="text/javascript">
 		require([
+			"esri/tasks/Locator",
 			"esri/Map",
 			"esri/views/MapView",
+			"esri/widgets/Locate",
 			"esri/widgets/Search",
 			"dojo/domReady!"
 			], function(
+				Locator,
 				Map,
 				MapView,
+				Locate,
 				Search) {
 
+				var locatorTask = new Locator({
+					url: "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"
+				});
+
 				var map = new Map({
-					basemap: "hybrid",
-					ground: "world-elevation"
+					basemap: "streets"
 				});
 
 				var view = new MapView({
@@ -40,25 +47,58 @@
 					zoom: 3
 				});
 
+				var locateBtn = new Locate({
+					view: view
+				});
+
 				var searchWidget = new Search({
 					view: view,
 					fieldsInfos: {fieldName: "NEVMARR_CY"}
 				});
 
-				console.log(searchWidget)
-      // Add the search widget to the very top left corner of the view
-      view.ui.add(searchWidget, {
-      	position: "top-left",
-      	index: 0
+				view.ui.add(locateBtn, {
+					position: "top-left"
+				});
+
+				view.ui.add(searchWidget, {
+					position: "top-left",
+					index: 0
+				});
+				
+				view.on("click", function(event) {
+        // Get the coordinates of the click on the view
+        var lat = Math.round(event.mapPoint.latitude * 1000) / 1000;
+        var lon = Math.round(event.mapPoint.longitude * 1000) / 1000;
+
+        view.popup.open({
+          // Set the popup's title to the coordinates of the location
+          title: "Reverse geocode: [" + lon + ", " + lat + "]",
+          location: event.mapPoint // Set the location of the popup to the clicked location
+        });
+
+        // Display the popup
+        // Execute a reverse geocode using the clicked location
+        locatorTask.locationToAddress(event.mapPoint).then(function(
+        	response) {
+          // If an address is successfully found, print it to the popup's content
+          var address = response.address.Match_addr;
+          view.popup.content = address;
+        }).otherwise(function(err) {
+          // If the promise fails and no result is found, print a generic message
+          // to the popup's content
+          view.popup.content =
+          "No address was found for this location";
+        });
       });
-    });
-  </script>
-</head>
 
-<body>
-	<app-root>Loading...</app-root>
+			});
+		</script>
+	</head>
 
-	<script src="assets/js/jquery.js"></script>
-	<script src="assets/js/bootstrap.js"></script>
-</body>
-</html>
+	<body>
+		<app-root>Loading...</app-root>
+
+		<script src="assets/js/jquery.js"></script>
+		<script src="assets/js/bootstrap.js"></script>
+	</body>
+	</html>

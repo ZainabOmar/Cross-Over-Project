@@ -1,0 +1,55 @@
+<script type="text/javascript">
+		require([
+			"esri/widgets/Track",
+			"esri/Map",
+			"esri/views/MapView",
+			"esri/widgets/Search",
+			"esri/symbols/MarkerSymbol",
+			"dojo/domReady!"
+			], function(
+				Track,
+				Map,
+				MapView,
+				Search,
+				MarkerSymbol
+				) {
+
+				var map = new Map({
+					basemap: "topo"
+				});
+
+				var view = new MapView({
+					scale: 123456789,
+					container: "viewDiv",
+					map: map,
+					center: [-80, 35],
+					zoom: 3
+				});
+
+				var track = new Track({
+					view: view
+				});
+
+				var searchWidget = new Search({
+					view: view
+				});
+
+				var pin = new MarkerSymbol ({
+					symbol: {xoffset : "4pt"}
+				})
+
+				view.ui.add(track, "top-left");
+
+				view.ui.add(searchWidget, {
+					position: "top-left",
+					index: 0
+				});
+
+				view.then(function() {
+					track.start();
+				});
+
+			})
+
+		</script>
+	</head>

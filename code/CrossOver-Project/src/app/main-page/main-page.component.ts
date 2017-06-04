@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../services/auth.service';
-import {ValidateService} from '../services/validate.service';
 import {FlashMessagesService} from 'angular2-flash-messages';
 import { FormsModule  } from '@angular/forms';
 
@@ -17,6 +16,8 @@ export class MainPageComponent implements OnInit {
 	bloodGroup: String;
 	contactNumber: String;
 	userType: String;
+	location: String;
+	allDonors: Object[] = [];
 
 	showUserType= false;
 	showUserInfo= false;
@@ -27,13 +28,19 @@ export class MainPageComponent implements OnInit {
 	donorButton= true;
 	disabled = false;
 
+	obj : any;
+
 	constructor(
 		private authService: AuthService,
-		private validateService: ValidateService,
 		private flashMessage:FlashMessagesService
 		) { }
 
-	ngOnInit() { }
+	ngOnInit() { 
+		this.obj = {};
+		this.authService.getDonors().subscribe(data => {
+			this.obj = data;
+		})
+	}
 
 	geoFindMe() {
 		var output = document.getElementById("out");
@@ -79,8 +86,10 @@ export class MainPageComponent implements OnInit {
 			email: this.emailAddress,
 			lastName: this.lastName,
 			bloodGroup: this.bloodGroup,
-			contactNumber: this.contactNumber
+			contactNumber: this.contactNumber,
+			location: this.location
 		}
+		this.allDonors.push(donor)
 
 
 		this.authService.registerDonor(donor).subscribe(data => {
@@ -95,6 +104,6 @@ export class MainPageComponent implements OnInit {
 				this.flashMessage.show("Please fill all the fields", {cssClass: 'alert-danger', timeout: 3000});
 			}
 		});
-		}
 	}
+}
 

@@ -16,7 +16,14 @@ export class AuthService {
     registerDonor(donor){
     let headers = new Headers();
     headers.append('Content-Type','application/json');
-    return this.http.post('api/postDonor', donor,{headers: headers})
+    return this.http.post('/api/postDonor', donor,{headers: headers})
+    .map(res => res.json());
+  }
+
+   getDonors(){
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.get('/api/getDonors', {headers: headers})
     .map(res => res.json());
   }
 

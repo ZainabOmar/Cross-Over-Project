@@ -5,11 +5,9 @@ import { HttpModule } from '@angular/http';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { FormsModule } from "@angular/forms";
 
-
-import {ValidateService} from './services/validate.service';
-import {AuthService} from './services/auth.service';
 import { AppComponent } from './app.component';
 import { MainPageComponent } from './main-page/main-page.component';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
 	declarations: [
@@ -24,7 +22,7 @@ import { MainPageComponent } from './main-page/main-page.component';
 	RouterModule.forRoot([
 		{path: '', component: MainPageComponent}])
 	],
-	providers: [ValidateService,AuthService],
+	providers: [AuthService],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }
