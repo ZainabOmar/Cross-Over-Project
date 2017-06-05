@@ -18,16 +18,6 @@ export class MainPageComponent implements OnInit {
 	userType: String;
 	location: String;
 	allDonors: Object[] = [];
-
-	showUserType= false;
-	showUserInfo= false;
-
-	patientFlag= false;
-	donorFlag= false;
-	patientButton= true;
-	donorButton= true;
-	disabled = false;
-
 	obj : any;
 
 	constructor(
@@ -35,50 +25,8 @@ export class MainPageComponent implements OnInit {
 		private flashMessage:FlashMessagesService
 		) { }
 
-	ngOnInit() { 
-		this.obj = {};
-		this.authService.getDonors().subscribe(data => {
-			this.obj = data;
-		})
-	}
+	ngOnInit() { }
 
-	geoFindMe() {
-		var output = document.getElementById("out");
-
-		if (!navigator.geolocation){
-			output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
-			return;
-		}
-
-		function success(position) {
-			var latitude  = position.coords.latitude;
-			var longitude = position.coords.longitude;
-
-			console.log("Latitude: " + position.coords.latitude + 
-				" Longitude: " + position.coords.longitude)
-		}
-
-		function error() {
-			output.innerHTML = "Unable to retrieve your location";
-		}
-		// output.innerHTML = "<p>Locating…</p>";
-		navigator.geolocation.getCurrentPosition(success, error);
-	}
-
-	donFlag() {
-		this.donorFlag = !this.donorFlag;
-		this.patientButton = !this.patientButton;
-	}
-
-	patFlag() {
-		this.patientFlag = !this.patientFlag;
-		this.donorButton = !this.donorButton;
-	}
-
-	div_show_userType() {
-		document.getElementById('userType').style.display = "block";
-		this.showUserType = false;
-	}
 
 	addDonor() {
 		const donor = {
@@ -95,8 +43,6 @@ export class MainPageComponent implements OnInit {
 		this.authService.registerDonor(donor).subscribe(data => {
 
 			if(data){
-				console.log(data, "this is data")
-				console.log(donor, "this is donor")
 
 				this.flashMessage.show('Your Information has been sent successfully', {cssClass: 'alert-success', timeout: 3000});
 				this.authService.storeDonorData(data)

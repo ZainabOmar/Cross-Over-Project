@@ -1,68 +1,78 @@
 <h1 style="text-align: center; color: #000066">Welcome to Our Blood Donation website</h1>
 <p style="text-align: center; color: #000066">Search your country on the map or use the locate button to get your location </p>
-<h3 id = "out" style="text-align: center; color: #3399ff;"></h3>
+<h4 id = "out" style="text-align: center; color: #3399ff;"  [(ngModel)]= "location"></h4>
 <br>
 
-<div id = "userType"  style= "display: none;">
-	<button id = "buttonInsert" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Please Insert Your Information</button>
-	<div id="myModal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title" style="text-align: center;">Please tell us if you were a patient or a donor!</h4>
-				</div>
-				<div class="modal-body">
-					<button id = "pat" type="button" class="btn btn-info" (click)="patFlag()">I am Patient</button>
-					<button id = "don" type="button" class="btn btn-info" (click)="donFlag()">I am Donor</button>
-					<!-- this will be shown if the user was donor -->
-					<div *ngIf="donorFlag">
-						<form>
-							<div class="form-group">
-								<label for="firstName">First Name</label>
-								<input name="first" type="firstName" class="form-control" id="firstName" placeholder="Enter Your first name" [(ngModel)]="firstName">
-							</div>
-							<div class="form-group">
-								<label for="lastName">Last Name</label>
-								<input name="last" type="lastName" class="form-control" id="lastName" placeholder="Enter Your Last name" [(ngModel)]="lastName">
-							</div>
-							<div class="form-group">
-								<label for="contact">Contact Number</label>
-								<input name="Number" type="text" class="form-control" placeholder="Enter Contact Number" [(ngModel)]="contactNumber" id = "number">
-							</div>
-							<div class="form-group">
-								<label for="emailAddress">Email address</label>
-								<input name="Email" type="text" class="form-control" placeholder="Enter email address" [(ngModel)]="emailAddress" id = "email">
-							</div>
-							<div class="form-group">
-								<label for="bloodGroup">Blood Group:</label>
-								<input name="blood" type="blood" class="form-control" id="bloodGroup" placeholder="Enter Blood Group" [(ngModel)]="bloodGroup">
-							</div>
-							<div class="modal-footer">
-								<button id = "myBtn" type="button" class="btn btn-default" data-dismiss="modal" (click) = "addDonor()">Submit</button>
-							</div>
-						</form>
+<button id = "buttonInsert1" type="button" class="btn-primary" data-toggle="modal" data-target="#myModal">I am Donor</button>
+<div id="myModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Please fill all the fields</h4>
+			</div>
+			<div class="modal-body">
+				<form>
+					<div class="form-group">
+						<label for="firstName">First Name</label>
+						<input name="first" type="firstName" class="form-control" id="firstName" placeholder="Enter Your first name" [(ngModel)]="firstName">
 					</div>
-
-					<!-- if it was patient then show this div -->
-					<div *ngIf="patientFlag" >
-						<h4>Those are the donors in your location</h4>
-						<div>Donor's first name:{{donor.firstName}}</div>
-						<div>Donor's last name:{{donor.lastName}}</div>
-						<div>
-							<button type="button" class="btn btn-secondary" data-toggle="popover" title="Popover title" data-content="Sorry, this information is private due to users security">Click to show</button>
-						</div>
-						<br>
-						<div>
-							<button type="button" class="btn btn-secondary" data-toggle="popover" title="Popover title" data-content="Sorry, this information is private due to users security">Click to show</button>
-						</div>
-						<div>Donor's blood group:{{donor.bloodGroup}}</div>
+					<div class="form-group">
+						<label for="lastName">Last Name</label>
+						<input name="last" type="lastName" class="form-control" id="lastName" placeholder="Enter Your Last name" [(ngModel)]="lastName">
 					</div>
-				</div>
+					<div class="form-group">
+						<label for="contact">Contact Number</label>
+						<input name="Number" type="text" class="form-control" placeholder="Enter Contact Number" [(ngModel)]="contactNumber" id = "number">
+					</div>
+					<div class="form-group">
+						<label for="emailAddress">Email address</label>
+						<input name="Email" type="text" class="form-control" placeholder="Enter email address" [(ngModel)]="emailAddress" id = "email">
+					</div>
+					<div class="form-group">
+						<label for="bloodGroup">Blood Group:</label>
+						<input name="blood" type="blood" class="form-control" id="bloodGroup" placeholder="Enter Blood Group" [(ngModel)]="bloodGroup">
+					</div>
+					<div class="modal-footer">
+						<button id = "myBtn" type="button" class="btn btn-default" data-dismiss="modal" (click) = "addDonor()">Submit</button>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
 </div>
 
-<br>
-<div id="viewDiv" (click) = "div_show_userType()" (click) = "geoFindMe()" ></div>
+<button id = "buttonInsert2" type="button" class="btn-primary" data-toggle="modal" data-target="#myModal2">I am Patient</button>
+<div id="myModal2" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Those are the donors in your location</h4>
+			</div>
+			<div class="modal-body" *ngFor = "let donor of allDonors">
+				<div>Donor's first name: {{donor.firstName}}</div><br>
+				<div>Donor's last name: {{donor.lastName}}</div><br>
+				<div>Donor's blood group: {{donor.bloodGroup}}</div><br>
+				<div>
+					<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo1">Click To Show</button>
+					<div id="demo1" class="collapse">
+					Sorry, user's contact number is private due security issues.
+					</div>
+				</div>
+				<br>
+				<div>
+					<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo2">Click To Show</button>
+					<div id="demo2" class="collapse">
+					Sorry, user's email address is private due security issues.
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button id = "myBtn" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<br><br>
+<div id="viewDiv"></div>

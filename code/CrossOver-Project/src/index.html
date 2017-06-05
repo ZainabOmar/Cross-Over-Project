@@ -5,6 +5,8 @@
 
 	<!-- links to bootstrap and css -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link href="assets/css/landing-page.css" rel="stylesheet">
 
 	<!-- link to ArcGIS -->
@@ -23,13 +25,16 @@
 			"esri/views/MapView",
 			"esri/widgets/Locate",
 			"esri/widgets/Search",
+			"dojo/dom",
 			"dojo/domReady!"
 			], function(
 				Locator,
 				Map,
 				MapView,
 				Locate,
-				Search) {
+				Search,
+				dom
+				) {
 
 				var locatorTask = new Locator({
 					url: "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"
@@ -70,24 +75,19 @@
         var lat = Math.round(event.mapPoint.latitude * 1000) / 1000;
         var lon = Math.round(event.mapPoint.longitude * 1000) / 1000;
 
-        view.popup.open({
-          // Set the popup's title to the coordinates of the location
-          title: "Reverse geocode: [" + lon + ", " + lat + "]",
-          location: event.mapPoint // Set the location of the popup to the clicked location
+        var popup = view.popup.open({
+        	title: "Reverse geocode: [" + lon + ", " + lat + "]",
+        	location: event.mapPoint
         });
 
-        // Display the popup
-        // Execute a reverse geocode using the clicked location
-        locatorTask.locationToAddress(event.mapPoint).then(function(
-        	response) {
-          // If an address is successfully found, print it to the popup's content
-          var address = response.address.Match_addr;
-          view.popup.content = address;
+        locatorTask.locationToAddress(event.mapPoint)
+        .then(function(response) {
+        	var address = response.address.Match_addr;
+        	view.popup.content = address;
+        	dom.byId(out).innerHTML ="Your Location:  " + address;
+
         }).otherwise(function(err) {
-          // If the promise fails and no result is found, print a generic message
-          // to the popup's content
-          view.popup.content =
-          "No address was found for this location";
+        	view.popup.content = "No address was found for this location";
         });
       });
 
@@ -97,8 +97,5 @@
 
 	<body>
 		<app-root>Loading...</app-root>
-
-		<script src="assets/js/jquery.js"></script>
-		<script src="assets/js/bootstrap.js"></script>
 	</body>
 	</html>
