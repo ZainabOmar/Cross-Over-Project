@@ -9,7 +9,7 @@ describe('add-donor', function () {
     .send({
       firstName: 'zainab',
       lastName: 'hammami',
-      email: 'memo@memo.com',
+      email: 'dodo@zak.com',
       contactNumber: '123456789',
       bloodGroup: "AB+",
       address: "somewhere",
