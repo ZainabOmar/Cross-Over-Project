@@ -1,55 +1,13 @@
-<script type="text/javascript">
-		require([
-			"esri/widgets/Track",
-			"esri/Map",
-			"esri/views/MapView",
-			"esri/widgets/Search",
-			"esri/symbols/MarkerSymbol",
-			"dojo/domReady!"
-			], function(
-				Track,
-				Map,
-				MapView,
-				Search,
-				MarkerSymbol
-				) {
+Hey everyone, so this is how you should launch the project:
 
-				var map = new Map({
-					basemap: "topo"
-				});
+1- First of all open your terminal or the bash where the package.json is located and run this command:
+"npm install".
 
-				var view = new MapView({
-					scale: 123456789,
-					container: "viewDiv",
-					map: map,
-					center: [-80, 35],
-					zoom: 3
-				});
+2- Second don't forget to run "mongod" since we are using MongoDB.
 
-				var track = new Track({
-					view: view
-				});
+3- Then you should transpile the typescript files into js files so the browser could read it, 
+in order to that run the command "npm run ng build" and then run "npm start".
 
-				var searchWidget = new Search({
-					view: view
-				});
+If you want to test front end only you can run "npm run ng serve" but that is not enough since we need some data and that is why you better use step 3.
 
-				var pin = new MarkerSymbol ({
-					symbol: {xoffset : "4pt"}
-				})
-
-				view.ui.add(track, "top-left");
-
-				view.ui.add(searchWidget, {
-					position: "top-left",
-					index: 0
-				});
-
-				view.then(function() {
-					track.start();
-				});
-
-			})
-
-		</script>
-	</head>
+4- Finally you can visit the website on this link "http://localhost:8000/"
