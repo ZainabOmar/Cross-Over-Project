@@ -12,7 +12,8 @@ describe('add-donor', function () {
       email: 'memo@memo.com',
       contactNumber: '123456789',
       bloodGroup: "AB+",
-      location: "somewhere"
+      address: "somewhere",
+      geoC: "31.76767574, 35.86868009"
     })
     .set('Accept', 'application/json')
     .expect('Content-Type', /json/)

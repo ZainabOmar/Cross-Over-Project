@@ -9,7 +9,8 @@ module.exports.handler = {
       email:req.body.email,
       contactNumber:req.body.contactNumber,
       bloodGroup: req.body.bloodGroup,
-      location: req.body.location
+      address: req.body.address,
+      geoC: req.body.geoC
     };
 
     Donor.findOne({email: donor.email})

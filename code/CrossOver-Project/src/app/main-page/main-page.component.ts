@@ -16,7 +16,8 @@ export class MainPageComponent implements OnInit {
 	bloodGroup: String;
 	contactNumber: String;
 	userType: String;
-	location: String;
+	address: String;
+	geoC: String;
 	allDonors: Object[] = [];
 	obj : any;
 
@@ -35,7 +36,8 @@ export class MainPageComponent implements OnInit {
 			lastName: this.lastName,
 			bloodGroup: this.bloodGroup,
 			contactNumber: this.contactNumber,
-			location: this.location
+			address: this.address,
+			geoC: this.geoC
 		}
 		this.allDonors.push(donor)
 

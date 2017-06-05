@@ -75,6 +75,8 @@
         var lat = Math.round(event.mapPoint.latitude * 1000) / 1000;
         var lon = Math.round(event.mapPoint.longitude * 1000) / 1000;
 
+        dom.byId(latlon).innerHTML ="Your geographical coordinates are: " + lat + "latitudinal " + lon + " longitudinal";
+
         var popup = view.popup.open({
         	title: "Reverse geocode: [" + lon + ", " + lat + "]",
         	location: event.mapPoint
@@ -84,12 +86,13 @@
         .then(function(response) {
         	var address = response.address.Match_addr;
         	view.popup.content = address;
-        	dom.byId(out).innerHTML ="Your Location:  " + address;
+
+        	dom.byId(address).innerHTML ="Your Address: " + address;
 
         }).otherwise(function(err) {
         	view.popup.content = "No address was found for this location";
         });
-      });
+    });
 
 			});
 		</script>
