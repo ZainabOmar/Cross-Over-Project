@@ -1,0 +1,13 @@
+## Solution:
+At the begining we should think of how we can logically structure the data,
+since we have 2 types of users then we need to distinguish between them.
+
+For building front-end we need to focus on "single-page" website, so all the html code would be in the same page and that means faster page loading.
+
+
+## Technologies:
+1. Node.Js and express for the back-end.
+2. MongoDB for data-base.
+3. Angular2, Bootstrap for front-end.
+4. ArcGIS to get the map.
+

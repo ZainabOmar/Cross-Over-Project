@@ -24,6 +24,10 @@ bloodGroup:{
 location: {
   type: String,
   required: true
+},
+geoC: {
+  type: String,
+  required: true
 }
 
 });
